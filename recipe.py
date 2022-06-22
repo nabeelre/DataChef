@@ -6,6 +6,13 @@ class Recipe():
         self.ingredients = []
         self.mix_funcs = []
 
+    def print(self):
+        """Prints a summary of the recipe."""
+        print('Recipe Summary')
+
+        for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
+            print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)
+
     def add_ingredient(self, ingredient, mix_func):
         self.ingredients.append(ingredient)
         self.mix_funcs.append(mix_func)

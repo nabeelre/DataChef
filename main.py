@@ -36,13 +36,16 @@ if __name__ == "__main__":
     y, ing_eval, ing_comp = recipe.cook_recipe(x, export_eval='./test_export/first_eval_test.csv', 
                                                     export_cum='./test_export/first_cum_test.csv')
 
+    # test print_recipe()
+    recipe.print()
+
     # plot results
     plt.plot(x,y)
     plt.show()
 
-    # plot each indiviual ingredient
-    for i in range(len(recipe.ingredients)):
-        plt.plot(x, ing_eval[i])
-        plt.show()
+    # # plot each indiviual ingredient
+    # for i in range(len(recipe.ingredients)):
+    #     plt.plot(x, ing_eval[i])
+    #     plt.show()
 
 
