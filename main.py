@@ -8,9 +8,9 @@ import mix_functions as mix_funcs
 
 if __name__ == "__main__":
     # make some ingredients for testing
-    ing = Ingredient(ing_funcs.line, "line", is_signal=True, m=10, b=1)
-    ing2 = Ingredient(ing_funcs.line, "line", is_signal=True, m=-10, b=1)
-    ing3 = Ingredient(ing_funcs.white_noise, "white noise", is_signal=False)
+    ing  = Ingredient(ing_funcs.line, "line", is_signal=True, m=10, b=1)
+    ing2 = Ingredient(ing_funcs.line, "line", is_signal=True, m=-5, b=1)
+    ing3 = Ingredient(ing_funcs.white_noise, "white noise", is_signal=False, scale=1.5, shift=2)
 
     # Run test function on an ingredient
     # ing.test(np.linspace(0,10,11))
@@ -26,10 +26,10 @@ if __name__ == "__main__":
     # ingsin.test(np.linspace(-1,1,11))
 
     # add ingredients to the Recipe
-    recipe = Recipe(seed=3)
-    recipe.add_ingredient(ing, "empty")
-    recipe.add_ingredient(ing2, 'empty')
-    recipe.add_ingredient(ing3, "empty")
+    recipe = Recipe()
+    recipe.add_ingredient(ing , mix_funcs.add)
+    recipe.add_ingredient(ing2, mix_funcs.add)
+    recipe.add_ingredient(ing3, mix_funcs.add)
 
     # Cook the recipe
     x = np.linspace(-1,1,11)

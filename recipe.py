@@ -3,11 +3,11 @@ import numpy as np
 class Recipe():
     def __init__(self):
         self.ingredients = []
-        self.mix_methods = []
+        self.mix_funcs = []
 
-    def add_ingredient(self, ingredient, mix_method):
+    def add_ingredient(self, ingredient, mix_func):
         self.ingredients.append(ingredient)
-        self.mix_methods.append(mix_method)
+        self.mix_funcs.append(mix_func)
 
     def cook_recipe(self, grid, seed=None):
         """"Cooks up a recipe."""
@@ -24,12 +24,12 @@ class Recipe():
         cumulative[0] = self.ingredients[0].eval(grid)
         
         # loop through the ingredients and add them in
-        for idx, ing in enumerate(self.ingredients[1:]) :
+        for idx, (ing, mix) in enumerate(zip(self.ingredients[1:], self.mix_funcs[1:])) :
             # evaluate the ingredient on the grid
             y = ing.eval(grid)
             ings_evaluated[idx+1,:] = y
 
             # mix the ingredient into the dish
-            cumulative[idx+1] = cumulative[idx] + y
+            cumulative[idx+1] = mix(cumulative[idx],y)
             
         return cumulative[-1], ings_evaluated, cumulative
