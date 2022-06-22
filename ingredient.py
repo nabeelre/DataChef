@@ -1,11 +1,5 @@
 class Ingredient():
     def __init__(self, func, label, is_signal=False, **kwargs):
-
-        # Instantiation differs depending on the input type to func
-
-        # If func is a string, look up the built in function in the ingredient dictionary
-
-        # If func is a 
         self.func = func
         self.kwargs = kwargs
         self.is_signal = is_signal
@@ -17,4 +11,5 @@ class Ingredient():
         print(self.eval(x))
     
     def eval(self, x):
+        """Evaluates the functional form of the ingredient on an array of x values."""
         return self.func(x, **self.kwargs)

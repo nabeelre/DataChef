@@ -1,26 +1,35 @@
+import numpy as np
+
 class Recipe():
     def __init__(self):
         self.ingredients = []
-        self.mixings = []
-        self.noises = []
+        self.mix_methods = []
 
-    def add_ingredient(self, ingredient, mixing):
+    def add_ingredient(self, ingredient, mix_method):
         self.ingredients.append(ingredient)
-        self.mixings.append(mixing)
+        self.mix_methods.append(mix_method)
 
-    def add_noise(self, noise, mixing):
-        self.noises.append(noise)
-        self.mixings.append(mixing)
-
-    def cook_recipe(self, grid):
+    def cook_recipe(self, grid, seed=None):
         """"Cooks up a recipe."""
-        base = np.zeros_like(grid)
-        noise_base = np.zeros_like(grid)
+        if seed is not None:
+            np.random.seed(seed)
 
-        for ing in self.ingredients :
-            base += ing.eval(grid)
+        # array to store the y array for each ingredient evaluated over the grid
+        ings_evaluated = np.zeros((len(self.ingredients),len(grid)))
+        # array to store the state of the "base" after each ingredient is added
+        cumulative = np.zeros((len(self.ingredients),len(grid)))
 
-        for noise in self.noises:
-            noise_base += noise.eval(grid)
+        # add in the first ingredient
+        ings_evaluated[0] = self.ingredients[0].eval(grid)
+        cumulative[0] = self.ingredients[0].eval(grid)
+        
+        # loop through the ingredients and add them in
+        for idx, ing in enumerate(self.ingredients[1:]) :
+            # evaluate the ingredient on the grid
+            y = ing.eval(grid)
+            ings_evaluated[idx+1,:] = y
+
+            # mix the ingredient into the dish
+            cumulative[idx+1] = cumulative[idx] + y
             
-        return base + noise_base
+        return cumulative[-1], ings_evaluated, cumulative
