@@ -3,32 +3,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 from recipe import Recipe
 from ingredient import Ingredient
-
-#### INGREDIENT FUNCTIONS ####
-
-def line(x, m=1, b=0):
-    return x*m+b
-
-def parabola(x, a=1, b=1, c=1):
-    return a*x**2 + b*x + c
+import ingredient_functions as ing_funcs
+import mix_functions as mix_funcs
 
 if __name__ == "__main__":
-    def custom(x, a, b, c):
-        print(a,b,c)
-        return a*x + b + c
-
-    def noise(x):
-        return np.random.rand(len(x))
-
     # make some ingredients for testing
-    ing = Ingredient(line, "line", is_signal=True, m=10, b=1)
-    ing2 = Ingredient(line, "line", is_signal=True, m=-10, b=1)
-    ing3 = Ingredient(noise, "noise", is_signal = False)
+    ing = Ingredient(ing_funcs.line, "line", is_signal=True, m=10, b=1)
+    ing2 = Ingredient(ing_funcs.line, "line", is_signal=True, m=-10, b=1)
+    ing3 = Ingredient(ing_funcs.white_noise, "white noise", is_signal=False)
 
     # Run test function on an ingredient
-    ing.test(np.linspace(0,10,11))
+    # ing.test(np.linspace(0,10,11))
 
     # ingredients that use a custom function
+    # def custom(x, a, b, c):
+    #     print(a,b,c)
+    #     return a*x + b + c
     # ing_cust = Ingredient(custom, "custom", a=1, b=2, c=3)
     # ing_cust.test(np.linspace(0,10,11))
 
