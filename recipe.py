@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Recipe():
     def __init__(self):
@@ -8,6 +9,15 @@ class Recipe():
     def add_ingredient(self, ingredient, mix_func):
         self.ingredients.append(ingredient)
         self.mix_funcs.append(mix_func)
+
+    def plot(self, grid, seed=None):
+        final, _, _ = Recipe.cook_recipe(self, grid, seed)
+        plt.plot(grid, final, marker='.', c='k')
+        ing_labels = ""
+        for ing in self.ingredients:
+            ing_labels += ing.label + ", "
+        ing_labels = ing_labels[0:-2]
+        plt.title(f"Ingredients: {ing_labels}")
 
     def cook_recipe(self, grid, seed=None):
         """"Cooks up a recipe."""
