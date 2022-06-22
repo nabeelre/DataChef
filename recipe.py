@@ -9,7 +9,7 @@ class Recipe():
         self.ingredients.append(ingredient)
         self.mix_funcs.append(mix_func)
 
-    def cook_recipe(self, grid, seed=None):
+    def cook_recipe(self, grid, seed=None, export_eval=None, export_cum=None):
         """"Cooks up a recipe."""
         if seed is not None:
             np.random.seed(seed)
@@ -31,5 +31,11 @@ class Recipe():
 
             # mix the ingredient into the dish
             cumulative[idx+1] = mix(cumulative[idx],y)
+
+        # export the evaluated ingredient to csv
+        if export_eval is not None:
+            np.savetxt(fname=export_eval, X=y)
+        if export_cum is not None:
+            np.savetxt(fname=export_cum, X=cumulative)
             
         return cumulative[-1], ings_evaluated, cumulative
