@@ -35,13 +35,16 @@ if __name__ == "__main__":
     x = np.linspace(-1,1,11)
     y, ing_eval, ing_comp = recipe.cook_recipe(x)
 
+    # test print_recipe()
+    recipe.print()
+
     # plot results
     plt.plot(x,y)
     plt.show()
 
-    # plot each indiviual ingredient
-    for i in range(len(recipe.ingredients)):
-        plt.plot(x, ing_eval[i])
-        plt.show()
+    # # plot each indiviual ingredient
+    # for i in range(len(recipe.ingredients)):
+    #     plt.plot(x, ing_eval[i])
+    #     plt.show()
 
 
