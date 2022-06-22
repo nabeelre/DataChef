@@ -33,7 +33,8 @@ if __name__ == "__main__":
 
     # Cook the recipe
     x = np.linspace(-1,1,11)
-    y, ing_eval, ing_comp = recipe.cook_recipe(x)
+    y, ing_eval, ing_comp = recipe.cook_recipe(x, export_eval='./test_export/first_eval_test.csv', 
+                                                    export_cum='./test_export/first_cum_test.csv')
 
     # plot results
     plt.plot(x,y)
