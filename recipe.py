@@ -2,24 +2,65 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Recipe():
+    """A list of steps to cook up a simulated data set.
+
+    A Recipe stores a list of Ingredients and the method by which they will be mixed
+    in to generate a simulated data set. 
+
+    Attributes:
+        ingredients (`list`): lists of Ingredients in the Recipe, in order of application
+        mix_funcs (`list`): lists the mixing functions by which Ingredients will be added, in order of application
+        label (`str`): the name of the Recipe
+
+
+    """
     def __init__(self, label="recipe"):
+        """Initialize a Recipe object.
+
+        Recipes store a list of Ingredients and the methods that they will be mixed
+        into the dataset. Use 
+
+        Args:
+            label (:obj:`str`, optional) : the name of the Recipe
+        """ 
         self.ingredients = []
         self.mix_funcs = []
-        self.eval = self.cook_recipe
+        # self.eval = self.cook_recipe
         self.label = label
 
     def print(self):
-        """Prints a summary of the recipe."""
+        """Print a summary of the Recipe."""
         print('Recipe Summary')
 
         for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
             print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)
 
     def add_ingredient(self, ingredient, mix_func):
+        """Add an Ingredient object to a Recipe.
+
+        Note:
+            Do not include the `self` parameter in the ``Args`` section.
+
+        Args:
+            ingredient (`Ingredient object`): The Ingredient object to be added
+            mix_func(`function`): A function that takes in two arrays of equal length, mixes them in some way into a 1D array and returns it
+
+        """
+        # TO DO: Make it possible to insert an ingredient by index into the middle of Recipe
         self.ingredients.append(ingredient)
         self.mix_funcs.append(mix_func)
 
     def add_recipe(self, recipe):
+        """Adds one Recipe line by line into this one.
+
+        Note:
+            Do not include the `self` parameter in the ``Args`` section.
+
+        Args:
+            recipe (`Recipe object`): The Recipe object to be added
+
+        """
+        # TO DO: Update (talk to Rae)
         for idx, (ing, mix) in enumerate(zip(recipe.ingredients, recipe.mix_funcs)) :
             self.ingredients.append(ing)
             self.mix_funcs.append(mix)            
@@ -35,6 +76,8 @@ class Recipe():
 
     def cook_recipe(self, grid, seed=None, export_eval=None, export_cum=None):
         """"Cooks up a recipe."""
+        # TO DO: Make compatible with grids of higher dimention
+
         if seed is not None:
             np.random.seed(seed)
 

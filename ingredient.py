@@ -1,15 +1,50 @@
 import matplotlib.pyplot as plt
 
 class Ingredient():
+    """Functional representation of data (signal or noise) to be created
+
+    Attributes:
+        func (function): Functional representation of data to be created
+        label (str): Name or short description of ingredient 
+
+    """
+
+
     def __init__(self, func, label, **kwargs):
+        """Ingredient constructor
+        
+        Create an ingredient object containing a function representation, 
+        other necessary arguments, and a descriptive label
+
+        Args:
+            func (function): Function representation of ingredient
+            label (str): Name or short description of ingredient to help 
+                identify distinguish amongst other ingredients
+        """
         self.func = func
         self.kwargs = kwargs
         self.label = label
 
     def plot(self, x):
+        """Evaluate and plot ingredient
+        
+        Evaluate the ingredient function at specified point(s) and plot
+        result of evaluation versus respective point(s)
+
+        Args:
+            x (array): numpy array or list of floats or ints. Grid on which to 
+                evaluate the ingredient function and plot against.
+        """
         plt.plot(x, self.eval(x), marker='.', c='k')
         plt.title(f"Ingredient '{self.label}'")
     
     def eval(self, x):
-        """Evaluates the functional form of the ingredient on an array of x values."""
+        """Evaluate ingredient
+        
+        Evaluate the ingredient function at specified point(s) 
+
+        Args:
+            x (array): numpy array or list of floats or ints. Grid on which to 
+                evaluate the ingredient function.
+        """
         return self.func(x, **self.kwargs)
