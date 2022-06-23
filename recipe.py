@@ -2,9 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Recipe():
-    def __init__(self):
+    def __init__(self, label="recipe"):
         self.ingredients = []
         self.mix_funcs = []
+        self.eval = self.cook_recipe
+        self.label = label
 
     def print(self):
         """Prints a summary of the recipe."""
@@ -16,6 +18,11 @@ class Recipe():
     def add_ingredient(self, ingredient, mix_func):
         self.ingredients.append(ingredient)
         self.mix_funcs.append(mix_func)
+
+    def add_recipe(self, recipe):
+        for idx, (ing, mix) in enumerate(zip(recipe.ingredients, recipe.mix_funcs)) :
+            self.ingredients.append(ing)
+            self.mix_funcs.append(mix)            
 
     def plot(self, grid, seed=None):
         final, _, _ = Recipe.cook_recipe(self, grid, seed)
