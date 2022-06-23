@@ -29,7 +29,6 @@ class Recipe():
         """ 
         self.ingredients = []
         self.mix_funcs = []
-        # self.eval = self.cook_recipe
         self.label = label
 
     def print(self):
@@ -39,17 +38,20 @@ class Recipe():
         for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
             print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)
 
-    def add_ingredient(self, ingredient, mix_func):
+    def add_ingredient(self, ingredient, mix_func, idx=None):
         """Add an Ingredient object to a Recipe.
 
         Args:
             ingredient (:obj:`Ingredient object`): The Ingredient object to be added
             mix_func(:func:`function`): A function that takes in two arrays of equal length, mixes them in some way into a 1D array and returns it
-
+            
         """
-        # TO DO: Make it possible to insert an ingredient by index into the middle of Recipe
-        self.ingredients.append(ingredient)
-        self.mix_funcs.append(mix_func)
+        if idx is None:
+            self.ingredients.append(ingredient)
+            self.mix_funcs.append(mix_func)
+        else :
+            self.ingredients.insert(idx, ingredient)
+            self.mix_funcs.insert(idx, mix_func)
 
     def add_recipe(self, recipe):
         """Adds one Recipe line by line into this one. 
