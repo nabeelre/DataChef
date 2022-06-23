@@ -4,8 +4,8 @@ class Ingredient():
     """Functional representation of data (signal or noise) to be created
 
     Attributes:
-        func (function): Functional representation of data to be created
-        label (str): Name or short description of ingredient 
+        func (:obj:`function`): Functional representation of data to be created
+        label (:obj:`str`): Name or short description of ingredient 
 
     """
 
@@ -17,8 +17,8 @@ class Ingredient():
         other necessary arguments, and a descriptive label
 
         Args:
-            func (function): Function representation of ingredient
-            label (str): Name or short description of ingredient to help 
+            func (:obj:`function`): Function representation of ingredient
+            label (:obj:`str`): Name or short description of ingredient to help 
                 identify distinguish amongst other ingredients
         """
         self.func = func
@@ -32,7 +32,7 @@ class Ingredient():
         result of evaluation versus respective point(s)
 
         Args:
-            x (array): numpy array or list of floats or ints. Grid on which to 
+            x (:obj:`array`): numpy array or list of floats or ints. Grid on which to 
                 evaluate the ingredient function and plot against.
         """
         plt.plot(x, self.eval(x), marker='.', c='k')
@@ -44,7 +44,7 @@ class Ingredient():
         Evaluate the ingredient function at specified point(s) 
 
         Args:
-            x (array): numpy array or list of floats or ints. Grid on which to 
+            x (:obj:`array`): numpy array or list of floats or ints. Grid on which to 
                 evaluate the ingredient function.
         """
         return self.func(x, **self.kwargs)
