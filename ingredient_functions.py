@@ -9,7 +9,7 @@ def line(x, m=1, b=0):
         b (:obj:`int` or :obj:`float`, optional): intercept of the line. Default is 0.
 
     Returns:
-        array: m*x + b.
+        :obj:`array`: m*x + b.
     '''
     return x*m+b
     
@@ -23,7 +23,7 @@ def parabola(x, a=1, b=0, c=0):
         c (:obj:`int` or :obj:`float`, optional): zeroth order coefficient. Default is 0.
 
     Returns:
-        array: a*x**2 + b*x + c.
+        :obj:`array`: a*x**2 + b*x + c.
     '''
     return a*x**2 + b*x + c
 
@@ -38,7 +38,7 @@ def cubic(x, a=1, b=0, c=0, d=0):
         d (:obj:`int` or :obj:`float`, optional): zeroth order coefficient. Default is 0.
 
     Returns:
-        array: a*x**3 + b*x**2 + c*x + d.
+        :obj:`array`: a*x**3 + b*x**2 + c*x + d.
     '''
 
     return a*x**3 + b*x**2 + c*x + d
@@ -62,12 +62,12 @@ def uniform(x, shift=0, scale=1):
     '''Function to generate random white noise.
 
     Args:
-        x (array): numpy vector. grid to make white noise on.
-        shift (int or float, optional): shift to the uniform distribution. default is 0.
-        scale (int or float, optional): scale to the uniform distribution. default is 1.
+        x (:obj:`array`): numpy vector. grid to make white noise on.
+        shift (:obj:`int` or :obj:`float`, optional): shift to the uniform distribution. Default is 0.
+        scale (:obj:`int` or :obj:`float`, optional): scale to the uniform distribution. Default is 1.
 
     Returns:
-        array: uniform distribution.
+        :obj:`array`: uniform distribution.
     '''
 
     return scale * np.random.rand(len(x)) + shift
@@ -76,12 +76,12 @@ def gaussian(x, mean=0, stdev=1):
     '''Function to generate random gaussian noise.
 
     Args:
-        x (array): numpy vector. grid to make gaussian noise on.
-        mean (int or float, optional): mean of the Gaussian distribution. default is 0.
-        stdev (int or float, optional): standard deviation to the Gaussian distribution. default is 1.
+        x (:obj:`array`): numpy vector. grid to make gaussian noise on.
+        mean (:obj:`int` or :obj:`float`, optional): mean of the Gaussian distribution. Default is 0.
+        stdev (:obj:`int` or :obj:`float`, optional): standard deviation to the Gaussian distribution. Default is 1.
 
     Returns:
-        array: Gaussian distribution.
+        :obj:`array`: Gaussian distribution.
     '''
     return np.random.normal(loc=mean, scale=stdev, size=x)
 
@@ -89,11 +89,11 @@ def poisson(x, lam=0):
     '''Function to generate random Poisson noise.
 
     Args:
-        x (array): numpy vector. grid to make white noise on.
-        lam (int or float, optional): expectation of interval, must be >= 0.
+        x (:obj:`array`): numpy vector. grid to make white noise on.
+        lam (:obj:`int` or :obj:`float`, optional): expectation of interval, must be >= 0.
 
     Returns:
-        array: Poisson distribution.
+        :obj:`array`: Poisson distribution.
     '''
 
     return np.random.poisson(lam=lam, size=x)
