@@ -13,3 +13,6 @@ class Ingredient():
     def eval(self, x):
         """Evaluates the functional form of the ingredient on an array of x values."""
         return self.func(x, **self.kwargs)
+
+    def generate_errors(self, error_func):
+        return

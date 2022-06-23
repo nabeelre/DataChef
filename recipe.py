@@ -40,7 +40,14 @@ class Recipe():
 
         # array to store the y array for each ingredient evaluated over the grid
         ings_evaluated = np.zeros((len(self.ingredients),len(grid)))
-        # array to store the state of the "base" after each ingredient is added
+
+        # array to store the state of the cumulative y-values after each ingredient is added
+        cumulative = np.zeros((len(self.ingredients),len(grid)))
+
+        # array to store the y-errors array generated for each ingredient evaluated over the grid
+        ings_evaluated = np.zeros((len(self.ingredients),len(grid)))
+
+        # array to store the state of the cumulative y-errors after each ingredient is added
         cumulative = np.zeros((len(self.ingredients),len(grid)))
 
         # add in the first ingredient

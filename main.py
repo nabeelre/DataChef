@@ -5,6 +5,9 @@ from recipe import Recipe
 from ingredient import Ingredient
 import ingredient_functions as ing_funcs
 import mix_functions as mix_funcs
+import uncertainties as unc  
+import uncertainties.unumpy as unumpy  
+
 
 if __name__ == "__main__":
     # make some ingredients for testing
@@ -12,12 +15,12 @@ if __name__ == "__main__":
     ing2 = Ingredient(ing_funcs.line, "line", is_signal=True, m=-5, b=1)
     ing3 = Ingredient(ing_funcs.white_noise, "white noise", is_signal=False, scale=1.5, shift=2)
 
-    # mini recipe
-    m1 = Ingredient(ing_funcs.parabola, "parabola", True, a=1, b=2, c=1)
-    m2 = Ingredient(ing_funcs.white_noise, "white noise", is_signal=False, scale=1.5)
-    minirecipe = Recipe()
-    minirecipe.add_ingredient(m1, mix_funcs.add)
-    minirecipe.add_ingredient(m2, mix_funcs.add)
+    # # mini recipe
+    # m1 = Ingredient(ing_funcs.parabola, "parabola", True, a=1, b=2, c=1)
+    # m2 = Ingredient(ing_funcs.white_noise, "white noise", is_signal=False, scale=1.5)
+    # minirecipe = Recipe()
+    # minirecipe.add_ingredient(m1, mix_funcs.add)
+    # minirecipe.add_ingredient(m2, mix_funcs.add)
 
     # Run test function on an ingredient
     # ing.test(np.linspace(0,10,11))
@@ -42,7 +45,7 @@ if __name__ == "__main__":
     recipe.add_ingredient(ing , mix_funcs.add)
     recipe.add_ingredient(ing2, mix_funcs.add)
     recipe.add_ingredient(ing3, mix_funcs.add)
-    recipe.add_recipe(minirecipe)
+    # recipe.add_recipe(minirecipe)
 
     rec = Recipe()
     rec.add_ingredient(ing_sine, mix_funcs.add)
@@ -50,6 +53,7 @@ if __name__ == "__main__":
     rec.add_ingredient(ing_unif, mix_funcs.add)
 
     # Cook the recipe
+    # test out using the uncertainties package to calculate y with propagation errors
     x = np.linspace(-10,10,101)
     y, ing_eval, ing_comp = rec.cook_recipe(x, export_eval='output/eval_test.csv', 
                                                export_cum='output/cum_test.csv')
