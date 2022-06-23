@@ -5,7 +5,6 @@ class Recipe():
     def __init__(self, label="recipe"):
         self.ingredients = []
         self.mix_funcs = []
-        self.eval = self.cook_recipe
         self.label = label
 
     def print(self):
@@ -15,12 +14,16 @@ class Recipe():
         for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
             print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)
 
-    def add_ingredient(self, ingredient, mix_func):
-        self.ingredients.append(ingredient)
-        self.mix_funcs.append(mix_func)
+    def add_ingredient(self, ingredient, mix_func, idx=None):
+        if idx is None:
+            self.ingredients.append(ingredient)
+            self.mix_funcs.append(mix_func)
+        else :
+            self.ingredients.insert(idx, ingredient)
+            self.mix_funcs.insert(idx, mix_func)
 
     def add_recipe(self, recipe):
-        for idx, (ing, mix) in enumerate(zip(recipe.ingredients, recipe.mix_funcs)) :
+        for ing, mix in zip(recipe.ingredients, recipe.mix_funcs):
             self.ingredients.append(ing)
             self.mix_funcs.append(mix)            
 
