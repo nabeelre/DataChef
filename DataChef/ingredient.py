@@ -59,6 +59,11 @@ class Ingredient():
                 the error bar at each point in the `x` grid. Overrides the err_func. Must have
                 the same dimensions as `x`.
             ignore_errors (:obj:`bool`, optional): if True, will evaluate without y errors  
+
+        Returns:
+            y (:obj:`array` or :obj:`uarray`): an array of the y values evaluated from the x grid.
+                If an `error_func` or `yerr` was provided, `y` will be a unumpy.uarray object, containing
+                information for both the y value and its associated errorbar.
         """
         y = self.func(x, **self.kwargs)
 
