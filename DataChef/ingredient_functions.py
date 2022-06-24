@@ -1,4 +1,6 @@
 import numpy as np
+from uncertainties import unumpy
+
 
 def line(x, m=1, b=0):
     '''Function to make a straight line with slope m and intercept b.

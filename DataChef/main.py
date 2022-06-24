@@ -9,7 +9,8 @@ from uncertainties import unumpy
 
 if __name__ == "__main__":
     # make some ingredients for testing
-    ing  = Ingredient(ing_funcs.line, "line", error_func=ing_funcs.uniform, m=10, b=1)
+    ing  = Ingredient(ing_funcs.line, "line", m=10, b=1,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
     ing2 = Ingredient(ing_funcs.line, "line", m=-5, b=1)
     ing3 = Ingredient(ing_funcs.poisson, "poisson noise")
 
@@ -17,8 +18,10 @@ if __name__ == "__main__":
     yerr = [.1] * len(x)
     # y = ing.eval(x, yerr=yerr)
     y = ing.eval(x)
-    plt.plot(x, unumpy.nominal_values(y))
-    plt.show()
+    print(y)
+    # ing.plot(x)
+    # plt.plot(x, unumpy.nominal_values(y))
+    # plt.show()
 
     # # mini recipe
     # m1 = Ingredient(ing_funcs.parabola, "parabola", True, a=1, b=2, c=1)
@@ -30,14 +33,21 @@ if __name__ == "__main__":
     # # Run test function on an ingredient
     # # ing.test(np.linspace(0,10,11))
 
-    ing_line  = Ingredient(ing_funcs.line, "line",m=10, b=1)
-    ing_parab = Ingredient(ing_funcs.parabola, "parabola", a=-2, b=0, c=3)
-    ing_cubic = Ingredient(ing_funcs.cubic, "cubic", a=2, b=0, c=0, d=-5)
-    ing_sine = Ingredient(ing_funcs.sinusoid, "sinusoid", phase=0, amplitude=4, period=np.pi)
+    ing_line  = Ingredient(ing_funcs.line, "line",m=10, b=1,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
+    ing_parab = Ingredient(ing_funcs.parabola, "parabola", a=-2, b=0, c=3,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
+    ing_cubic = Ingredient(ing_funcs.cubic, "cubic", a=2, b=0, c=0, d=-5,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
+    ing_sine = Ingredient(ing_funcs.sinusoid, "sinusoid", phase=0, amplitude=4, period=np.pi,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
     
-    ing_unif = Ingredient(ing_funcs.uniform, "white noise", shift=0, scale=5)
-    ing_gaus = Ingredient(ing_funcs.gaussian, "gaussian", mean=5, stdev=2)
-    ing_pois = Ingredient(ing_funcs.poisson, "poisson", lam=2)
+    ing_unif = Ingredient(ing_funcs.uniform, "white noise", shift=0, scale=5,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
+    ing_gaus = Ingredient(ing_funcs.gaussian, "gaussian", mean=5, stdev=2,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
+    ing_pois = Ingredient(ing_funcs.poisson, "poisson", lam=2,
+                        error_func=ing_funcs.uniform, error_func_kwargs={'scale':10})
 
     # # ingredients that use a custom function
     # # def custom(x, a, b, c):
@@ -59,8 +69,10 @@ if __name__ == "__main__":
 
     # Cook the recipe
     x = np.linspace(-10,10,101)
-    yerr = [.1]*len(x)
-    # y, ing_eval, ing_comp = rec.cook_recipe(x, yerr=yerr)
+    # yerr = [.1]*len(x)
+    y, ing_eval, ing_comp = rec.cook_recipe(x)
+
+    print('end')
 
     # # test print_recipe()
     # rec.print()

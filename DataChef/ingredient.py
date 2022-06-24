@@ -12,7 +12,7 @@ class Ingredient():
     """
 
 
-    def __init__(self, func, label, error_func=None, error_func_kwargs={}, **kwargs):
+    def __init__(self, func, label, error_func=None, error_func_kwargs={'scale':2}, **kwargs):
         """Ingredient constructor
         
         Create an ingredient object containing a function representation, 
