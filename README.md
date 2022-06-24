@@ -3,3 +3,5 @@
 # DataChef
 
 A lightweight package for creating fake (noisy) data of built-in forms or of a custom, user-provided form.
+
+See DataChef/tutorial.ipynb for a walkthrough of DataChef's features and http://datachef.readthedocs.io/ for the documentation
