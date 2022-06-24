@@ -68,9 +68,13 @@ def test_rand_seed():
 
 def test_empty_x():
     """
-    Test the behavior of the eval funchent when given an empty x grid.
+    Test the behavior of the eval function when given an empty x grid.
     """
-    ing = Ingredient(ing_funcs.parabola, "para", a=10, b=-1, c=41)
+    for func in [ing_funcs.line, ing_funcs.parabola, ing_funcs.cubic, 
+                 ing_funcs.sinusoid, ing_funcs.uniform, ing_funcs.gaussian, 
+                 ing_funcs.poisson
+                ]: 
+        ing = Ingredient(func, "test")
 
-    assert ing.eval([]) is None
-    assert ing.eval(np.asarray([])) is None
+        assert ing.eval([]) is None
+        assert ing.eval(np.asarray([])) is None
