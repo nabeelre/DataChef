@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+from uncertainties import unumpy
 
 from DataChef import ingredient_functions as ing_funcs
 from DataChef.ingredient import Ingredient
@@ -7,7 +8,7 @@ from DataChef.ingredient import Ingredient
 
 def test_line_eval():
     """
-    Check the eval function on a simple line. Tests with input as list and array
+    Check the eval function on a simple line. Tests with input as list and array.
     """
     ing = Ingredient(ing_funcs.line, "line", m=10, b=-1)
 
@@ -20,7 +21,7 @@ def test_line_eval():
 
 def test_parab_eval():
     """
-    Check the eval function on a simple parabola. Tests with input as list and array
+    Check the eval function on a simple parabola. Tests with input as list and array.
     """
     ing = Ingredient(ing_funcs.parabola, "line", a=1, b=0, c=0)
 
@@ -33,7 +34,7 @@ def test_parab_eval():
 
 def test_cubic_eval():
     """
-    Check the eval function on a simple parabola. Tests with input as list and array
+    Check the eval function on a simple parabola. Tests with input as list and array.
     """
     ing = Ingredient(ing_funcs.cubic, "line", a=1, b=0, c=0, d=0)
 
@@ -46,7 +47,7 @@ def test_cubic_eval():
 
 def test_sin_eval():
     """
-    Check the eval function on a simple parabola. Tests with input as list and array
+    Check the eval function on a simple parabola. Tests with input as list and array.
     """
     ing = Ingredient(ing_funcs.sinusoid, "line", phase=0, amplitude=2, period=np.pi)
 
@@ -59,7 +60,7 @@ def test_sin_eval():
 
 def test_rand_seed():
     """
-    Check that np.random.seed is correctly applied when specifiying a seed
+    Check that np.random.seed is correctly applied when specifiying a seed.
     """
     x = np.linspace(-1,100,13)
 
@@ -67,9 +68,13 @@ def test_rand_seed():
 
 def test_empty_x():
     """
-    Test the behavior of the eval funchent when given an empty x grid.
+    Test the behavior of the eval function when given an empty x grid.
     """
-    ing = Ingredient(ing_funcs.parabola, "para", a=10, b=-1, c=41)
+    for func in [ing_funcs.line, ing_funcs.parabola, ing_funcs.cubic, 
+                 ing_funcs.sinusoid, ing_funcs.uniform, ing_funcs.gaussian, 
+                 ing_funcs.poisson
+                ]: 
+        ing = Ingredient(func, "test")
 
-    assert ing.eval([]) is None
-    assert ing.eval(np.asarray([])) is None
+        assert ing.eval([]) is None
+        assert ing.eval(np.asarray([])) is None
