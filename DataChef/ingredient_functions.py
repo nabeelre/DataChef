@@ -13,7 +13,7 @@ def line(x, m=1, b=0):
     Returns:
         :obj:`array`: m*x + b.
     '''
-    return x*m+b
+    return np.asarray(x)*m+b
     
 def parabola(x, a=1, b=0, c=0):
     '''Function to make a parabola.
@@ -27,6 +27,7 @@ def parabola(x, a=1, b=0, c=0):
     Returns:
         :obj:`array`: a*x**2 + b*x + c.
     '''
+    x = np.asarray(x)
     return a*x**2 + b*x + c
 
 def cubic(x, a=1, b=0, c=0, d=0):
@@ -42,7 +43,7 @@ def cubic(x, a=1, b=0, c=0, d=0):
     Returns:
         :obj:`array`: a*x**3 + b*x**2 + c*x + d.
     '''
-
+    x = np.asarray(x)
     return a*x**3 + b*x**2 + c*x + d
 
 def sinusoid(x, phase=0, amplitude=1, period=2*np.pi):
@@ -57,10 +58,10 @@ def sinusoid(x, phase=0, amplitude=1, period=2*np.pi):
     Returns:
         :obj:`array`: A * sin(Bx + C), where A is the amplitude, B is 2*pi / period, C is the initial phase.
     '''
-
+    x = np.asarray(x)
     return amplitude*np.sin(2*np.pi / period*x + phase)
 
-def uniform(x, shift=0, scale=1):
+def uniform(x, shift=0, scale=1, seed=None):
     '''Function to generate random white noise.
 
     Args:
@@ -71,10 +72,11 @@ def uniform(x, shift=0, scale=1):
     Returns:
         :obj:`array`: uniform distribution.
     '''
-
+    if seed is not None:
+        np.random.seed(seed)
     return scale * np.random.rand(len(x)) + shift
 
-def gaussian(x, mean=0, stdev=1):
+def gaussian(x, mean=0, stdev=1, seed=None):
     '''Function to generate random gaussian noise.
 
     Args:
@@ -85,9 +87,11 @@ def gaussian(x, mean=0, stdev=1):
     Returns:
         :obj:`array`: Gaussian distribution.
     '''
-    return np.random.normal(loc=mean, scale=stdev, size=x)
+    if seed is not None:
+        np.random.seed(seed)
+    return np.random.normal(loc=mean, scale=stdev, size=len(x))
 
-def poisson(x, lam=0):
+def poisson(x, lam=0, seed=None):
     '''Function to generate random Poisson noise.
 
     Args:
@@ -97,8 +101,9 @@ def poisson(x, lam=0):
     Returns:
         :obj:`array`: Poisson distribution.
     '''
-
-    return np.random.poisson(lam=lam, size=x)
+    if seed is not None:
+        np.random.seed(seed)
+    return np.random.poisson(lam=lam, size=len(x))
 
 def gw_signal(x, m1, m2, orb_period, r, redshift, Phi, Theta, i=None, seed=1 ):
 
