@@ -68,14 +68,14 @@ class Recipe():
             self.ingredients.append(ing)
             self.mix_funcs.append(mix)            
 
-    def plot(self, grid, seed=None):
+    def plot(self, grid, export_eval=None, export_cum=None, seed=None):
         """Plots the output of a recipe.
 
         Args:
             grid (:obj:`1D array`): The x grid that the recipe will be evaluated on
             seed (:obj:`int`, optional): A seed for random number generation via the numpy package.
         """
-        output = Recipe.cook_recipe(self, grid, seed)
+        output = Recipe.cook_recipe(self, grid, export_eval, export_cum, seed)
         final = output[0]
         plt.plot(grid, final, marker='.', c='k')
         ing_labels = ""

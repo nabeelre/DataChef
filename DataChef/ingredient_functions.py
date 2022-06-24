@@ -1,8 +1,7 @@
 import numpy as np
 from uncertainties import unumpy
 
-
-from .gw_signal import *
+from DataChef import gw_signal
 
 def line(x, m=1, b=0):
     '''Function to make a straight line with slope m and intercept b.
