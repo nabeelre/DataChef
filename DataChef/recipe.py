@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from DataChef.ingredient import Ingredient
 
 class Recipe():
     """A list of steps to cook up a simulated data set.
@@ -31,21 +32,19 @@ class Recipe():
         self.mix_funcs = []
         self.label = label
 
-    def print(self):
-        """Print a summary of the Recipe, including its Ingredients and mixing functions."""
-        print('Recipe Summary')
-
-        for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
-            print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)
-
     def add_ingredient(self, ingredient, mix_func, idx=None):
         """Add an Ingredient object to a Recipe.
 
         Args:
             ingredient (:obj:`Ingredient object`): The Ingredient object to be added
             mix_func(:func:`function`): A function that takes in two arrays of equal length, mixes them in some way into a 1D array and returns it
-            
+            idx (:obj:`int`, optional): insert an ingredient with the given index, only works when the recipe list reaches this index.
         """
+
+        if type(ingredient) is not Ingredient:
+            print("ingredient must be Ingredient object.")
+            return None
+
         if idx is None:
             self.ingredients.append(ingredient)
             self.mix_funcs.append(mix_func)
@@ -64,7 +63,14 @@ class Recipe():
         # TO DO: Update to respect order of operations (talk to Rae)
         for idx, (ing, mix) in enumerate(zip(recipe.ingredients, recipe.mix_funcs)) :
             self.ingredients.append(ing)
-            self.mix_funcs.append(mix)            
+            self.mix_funcs.append(mix)          
+
+    def print(self):
+        """Print a summary of the Recipe, including its Ingredients and mixing functions."""
+        print('Recipe Summary')
+
+        for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
+            print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)  
 
     def plot(self, grid, seed=None):
         """Plots the output of a recipe.
