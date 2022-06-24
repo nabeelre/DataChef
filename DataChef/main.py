@@ -70,7 +70,7 @@ if __name__ == "__main__":
     # Cook the recipe
     x = np.linspace(-10,10,101)
     # yerr = [.1]*len(x)
-    y, ing_eval, ing_comp = rec.cook_recipe(x)
+    y, ing_eval, ing_comp, err_ing, err_cum = rec.cook_recipe(x)
 
     print('end')
 

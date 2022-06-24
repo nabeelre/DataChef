@@ -95,8 +95,16 @@ class Recipe():
 
         Returns:
             y (:obj:`1D array`): The y values calculated by the recipe
-            ings_evaluated (:obj:`2D array`): Stores the output of ingredient.eval() for each ingredient in the recipe. The `i`th row corresponds to ingredient at the `i`th step of the recipe.
-            cumulative (:obj:`2D array`): Stores the y-values at each step of the recipe. The `i`th row corresponds the `i`th step of the recipe.
+            ings_evaluated (:obj:`2D array`): Stores the output of ingredient.eval() for each 
+                ingredient in the recipe. The `i`th row corresponds to ingredient at the `i`th 
+                step of the recipe.
+            cumulative (:obj:`2D array`): Stores the y-values at each step of the recipe. The 
+                `i`th row corresponds the `i`th step of the recipe.
+            errs_evaluated (:obj:`2D array`): Stores the errorbars from ingredient.eval() for each 
+                ingredient in the recipe. The `i`th row corresponds to ingredient at the `i`th 
+                step of the recipe.
+            errs_cumulative (:obj:`2D array`): Stores the errorbars at each step of the recipe. The 
+                `i`th row corresponds the `i`th step of the recipe.
         """
         # TO DO: Make compatible with grids of higher dimention
 
