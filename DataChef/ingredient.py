@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import warnings
 
 class Ingredient():
     """Functional representation of data (signal or noise) to be created
