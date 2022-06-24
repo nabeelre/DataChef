@@ -8,6 +8,7 @@ c = CONST.c
 Omega = (2 * np.pi *U.rad / (1 * U.yr)).to(U.rad/U.s)      # angular frequency earth's orbit around sun
 R = 1 * U.AU
 
+
 def get_computing_variable(m1, m2, p_orb):
     '''
     Get all the computing variables needed to obtain gw waveform. (ref:M&H)
@@ -105,7 +106,6 @@ def get_orb_phase(eta,tau,t_c,t):
     phi_s = phi_s * U.rad
 
     return phi_s
-
 
 def get_gw_phase(Phi, Theta, omega_s, t_n ,t_n1, rs, phi_0, phi_s, I_0):
     '''

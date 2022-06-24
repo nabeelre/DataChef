@@ -1,6 +1,8 @@
 import numpy as np
 from uncertainties import unumpy
-from DataChef import gw_signal
+import astropy.units as U
+from DataChef import gw_signal_helper
+
 
 def line(x, m=1, b=0):
     '''Function to make a straight line with slope m and intercept b.
@@ -149,22 +151,22 @@ def gw_signal(x, m1=10, m2=10, orb_period=80, r=12, redshift=0, Phi=4, Theta=1.3
         i = np.random.rand() * np.pi * U.rad
     phi_0 = np.random.rand() * 2 * np.pi * U.rad
 
-    semiaixs,t_c,tau,eta,delta = get_computing_variable(m1,m2,p_orb)
+    semiaixs,t_c,tau,eta,delta = gw_signal_helper.get_computing_variable(m1,m2,p_orb)
 
     t_i = 0*U.s
 
     h_c = np.zeros(nsteps); h_p = np.zeros(nsteps) # waveforms from detector frame
 
-    omega_s0 = get_orb_freq(eta,tau,t_c,t_i/(1+rs)) # orbital frequency at initial observation time
+    omega_s0 = gw_signal_helper.get_orb_freq(eta,tau,t_c,t_i/(1+rs)) # orbital frequency at initial observation time
     I_0 = 0.0
 
     for n in range(nsteps):
         t_n = n * dt ; t_sn = t_n / (1+rs) ; t_n1 = t_n + dt
-        omega_s = get_orb_freq(eta,tau,t_c,t_sn)
-        phi_s = get_orb_phase(eta,tau,t_c,t_sn)
+        omega_s = gw_signal_helper.get_orb_freq(eta,tau,t_c,t_sn)
+        phi_s = gw_signal_helper.get_orb_phase(eta,tau,t_c,t_sn)
 
-        phi_r = get_gw_phase(Phi,Theta,omega_s,t_n,t_n1,rs,phi_0,phi_s,I_0)
+        phi_r = gw_signal_helper.get_gw_phase(Phi,Theta,omega_s,t_n,t_n1,rs,phi_0,phi_s,I_0)
 
-        h_p[n],h_c[n] = get_waveform(tau,eta,delta,i,R_L,phi_r,omega_s)
+        h_p[n],h_c[n] = gw_signal_helper.get_waveform(tau,eta,delta,i,R_L,phi_r,omega_s)
     
     return h_p

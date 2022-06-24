@@ -34,7 +34,7 @@ class Ingredient():
         self.error_func_kwargs = error_func_kwargs
         # self.error_kwargs = error_kwargs
 
-    def plot(self, x):
+    def plot(self, x, marker='.'):
         """Evaluate and plot ingredient
         
         Evaluate the ingredient function at specified point(s) and plot
@@ -44,7 +44,7 @@ class Ingredient():
             x (:obj:`array`): numpy array or list of floats or ints. Grid on which to 
                 evaluate the ingredient function and plot against.
         """
-        plt.plot(x, self.eval(x, ignore_errors=True), marker='.', c='k')
+        plt.plot(x, self.eval(x, ignore_errors=True), marker=marker, c='k')
         plt.title(f"Ingredient '{self.label}'")
     
     def eval(self, x, yerr=None, ignore_errors=False):

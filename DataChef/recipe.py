@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from DataChef.ingredient import Ingredient
+from uncertainties import unumpy
 
 class Recipe():
     """A list of steps to cook up a simulated data set.
@@ -72,7 +73,7 @@ class Recipe():
         for idx, (ing, mix) in enumerate(zip(self.ingredients, self.mix_funcs)):
             print(str(idx) + ': ' + ing.label + ', ' + mix.__name__)  
 
-    def plot(self, grid, export_eval=None, export_cum=None, seed=None):
+    def plot(self, grid, marker='.', export_eval=None, export_cum=None, seed=None):
         """Plots the output of a recipe.
 
         Args:
@@ -81,7 +82,7 @@ class Recipe():
         """
         output = Recipe.cook_recipe(self, grid, export_eval, export_cum, seed)
         final = output[0]
-        plt.plot(grid, final, marker='.', c='k')
+        plt.plot(grid, final, marker=marker, c='k')
         ing_labels = ""
         for ing in self.ingredients:
             ing_labels += ing.label + ", "
