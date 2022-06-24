@@ -12,7 +12,7 @@ class Ingredient():
     """
 
 
-    def __init__(self, func, label, error_func=None, **kwargs):
+    def __init__(self, func, label, error_func=None, error_func_kwargs={}, **kwargs):
         """Ingredient constructor
         
         Create an ingredient object containing a function representation, 
@@ -24,11 +24,14 @@ class Ingredient():
                 identify distinguish amongst other ingredients
             error_func (:obj:`function`): function that generates an array of error values 
                 if given an x array 
+            error_func (:obj:`dict`): kwargs to be passed to the error function
+
         """
         self.func = func
         self.kwargs = kwargs
         self.label = label
         self.error_func = error_func
+        self.error_func_kwargs = error_func_kwargs
         # self.error_kwargs = error_kwargs
 
     def plot(self, x):
@@ -66,7 +69,7 @@ class Ingredient():
         if yerr is not None:
             y = unumpy.uarray(y, yerr)
         elif callable(self.error_func):
-            yerr = self.error_func(**self.kwargs)
+            yerr = self.error_func(x, **self.error_func_kwargs)
             y = unumpy.uarray(y, yerr) 
 
         return y
@@ -82,4 +85,4 @@ class Ingredient():
             error_func (:obj:`function`): function that generates an array of error values 
                 if given an x array 
         """
-        return error_func(x, **self.error_kwargs)
+        return error_func(x, **self.error_func_kwargs)
