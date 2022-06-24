@@ -44,7 +44,7 @@ class Ingredient():
             x (:obj:`array`): numpy array or list of floats or ints. Grid on which to 
                 evaluate the ingredient function and plot against.
         """
-        plt.plot(x, self.eval(x), marker='.', c='k')
+        plt.plot(x, self.eval(x, ignore_errors=True), marker='.', c='k')
         plt.title(f"Ingredient '{self.label}'")
     
     def eval(self, x, yerr=None, ignore_errors=False):
@@ -85,4 +85,5 @@ class Ingredient():
             error_func (:obj:`function`): function that generates an array of error values 
                 if given an x array 
         """
+        # TO DO: Check if this function is unecessary
         return error_func(x, **self.error_func_kwargs)
