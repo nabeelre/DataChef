@@ -1,4 +1,6 @@
 import numpy as np
+from uncertainties import unumpy
+
 
 from gw_signal import *
 
