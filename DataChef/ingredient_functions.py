@@ -105,7 +105,7 @@ def poisson(x, lam=0, seed=None):
         np.random.seed(seed)
     return np.random.poisson(lam=lam, size=len(x))
 
-def gw_signal(x, m1, m2, orb_period, r, redshift, Phi, Theta, i=None, seed=1 ):
+def gw_signal(x, m1=10, m2=10, orb_period=80, r=12, redshift=0, Phi=4, Theta=1.3, i=None, seed=1 ):
 
     '''
     Generate 2nd-order post newtonian gravitational waveform (plus polarization) from inspiral binary. Spin not considered.
@@ -114,12 +114,12 @@ def gw_signal(x, m1, m2, orb_period, r, redshift, Phi, Theta, i=None, seed=1 ):
         x (:obj:`array`): numpy vector. grid to make GW signal on.
                         Notice that x shoud be evenly spaced, 
                         also the step (dx) should be less than 1/50 orbital period to make the signal clear.
-        m1, m2 (:obj:`int` or :obj:`float`, [M_sun]): mass of the binary stars in unit of sorlar mass.
-        orb_period (:obj:`int` or :obj:`float`, [s]): orbital period of the binary stars in unit of second.
-        r (:obj:`int` or :obj:`float`, [kpc]): distance of the binary to the detector in unit of kpc.
-        redshift (:obj:`int` or :obj:`float`): cosmological redshift of the binary to the detector in unit of kpc.
-        Phi (:obj:`int` or :obj:`float`, [rad]): ecliptic angular coodinate of the binary, longtitude
-        Theta (:obj:`int` or :obj:`float`, [rad]): ecliptic angular coodinate of the binary, lattitude(polar angle)
+        m1, m2 (:obj:`int` or :obj:`float`, [M_sun], optional): mass of the binary stars in unit of sorlar mass.
+        orb_period (:obj:`int` or :obj:`float`, [s], optional): orbital period of the binary stars in unit of second.
+        r (:obj:`int` or :obj:`float`, [kpc], optional): distance of the binary to the detector in unit of kpc.
+        redshift (:obj:`int` or :obj:`float`, optional): cosmological redshift of the binary to the detector in unit of kpc.
+        Phi (:obj:`int` or :obj:`float`, [rad], optional): ecliptic angular coodinate of the binary, longtitude
+        Theta (:obj:`int` or :obj:`float`, [rad], optional): ecliptic angular coodinate of the binary, lattitude(polar angle)
         i (:obj:`int` or :obj:`float`, [rad], optional): inclination of the binary system. Default is a random angle between [0, pi]
         seed (:obj:`int`, optional): A seed for random number generation via the numpy package.
 
