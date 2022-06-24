@@ -65,6 +65,10 @@ class Ingredient():
                 If an `error_func` or `yerr` was provided, `y` will be a unumpy.uarray object, containing
                 information for both the y value and its associated errorbar.
         """
+        if len(x) == 0:
+            print("Cannot eval on empty array")
+            return None
+          
         y = self.func(x, **self.kwargs)
 
         if ignore_errors:
