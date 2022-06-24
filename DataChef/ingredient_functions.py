@@ -1,5 +1,7 @@
 import numpy as np
 
+from gw_signal import *
+
 def line(x, m=1, b=0):
     '''Function to make a straight line with slope m and intercept b.
 
@@ -102,3 +104,67 @@ def poisson(x, lam=0, seed=None):
     if seed is not None:
         np.random.seed(seed)
     return np.random.poisson(lam=lam, size=len(x))
+
+def gw_signal(x, m1, m2, orb_period, r, redshift, Phi, Theta, i=None, seed=1 ):
+
+    '''
+    Generate 2nd-order post newtonian gravitational waveform (plus polarization) from inspiral binary. Spin not considered.
+
+    Args:
+        x (:obj:`array`): numpy vector. grid to make GW signal on.
+                        Notice that x shoud be evenly spaced, 
+                        also the step (dx) should be less than 1/50 orbital period to make the signal clear.
+        m1, m2 (:obj:`int` or :obj:`float`, [M_sun]): mass of the binary stars in unit of sorlar mass.
+        orb_period (:obj:`int` or :obj:`float`, [s]): orbital period of the binary stars in unit of second.
+        r (:obj:`int` or :obj:`float`, [kpc]): distance of the binary to the detector in unit of kpc.
+        redshift (:obj:`int` or :obj:`float`): cosmological redshift of the binary to the detector in unit of kpc.
+        Phi (:obj:`int` or :obj:`float`, [rad]): ecliptic angular coodinate of the binary, longtitude
+        Theta (:obj:`int` or :obj:`float`, [rad]): ecliptic angular coodinate of the binary, lattitude(polar angle)
+        i (:obj:`int` or :obj:`float`, [rad], optional): inclination of the binary system. Default is a random angle between [0, pi]
+        seed (:obj:`int`, optional): A seed for random number generation via the numpy package.
+
+    Returns:
+        :obj:`array`: The gravitional waves waveform (plus polarization) calculated with 2nd-order post Newtonian formula from: arXiv:gr-qc/9602024
+                        Notice that this waveform will fail if the state of binary is approaching merger.
+
+    '''
+    
+    nsteps = len(x)
+    dt = np.diff(x)[0]
+
+    dt = dt * U.s
+    m1 = m1 * U.M_sun
+    m2 = m2 * U.M_sun
+    p_orb = orb_period * U.s
+    r = r * U.kpc
+    Phi = Phi * U.rad
+    Theta = Theta * U.rad
+    np.random.seed(seed)
+
+    rs = redshift
+    R_L = r * (1+rs)
+
+
+    if i == None:
+        i = np.random.rand() * np.pi * U.rad
+    phi_0 = np.random.rand() * 2 * np.pi * U.rad
+
+    semiaixs,t_c,tau,eta,delta = get_computing_variable(m1,m2,p_orb)
+
+    t_i = 0*U.s
+
+    h_c = np.zeros(nsteps); h_p = np.zeros(nsteps) # waveforms from detector frame
+
+    omega_s0 = get_orb_freq(eta,tau,t_c,t_i/(1+rs)) # orbital frequency at initial observation time
+    I_0 = 0.0
+
+    for n in range(nsteps):
+        t_n = n * dt ; t_sn = t_n / (1+rs) ; t_n1 = t_n + dt
+        omega_s = get_orb_freq(eta,tau,t_c,t_sn)
+        phi_s = get_orb_phase(eta,tau,t_c,t_sn)
+
+        phi_r = get_gw_phase(Phi,Theta,omega_s,t_n,t_n1,rs,phi_0,phi_s,I_0)
+
+        h_p[n],h_c[n] = get_waveform(tau,eta,delta,i,R_L,phi_r,omega_s)
+    
+    return h_p
