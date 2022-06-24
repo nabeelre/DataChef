@@ -73,10 +73,3 @@ def test_empty_x():
 
     assert ing.eval([]) is None
     assert ing.eval(np.asarray([])) is None
-
-
-test_line_eval()
-test_parab_eval()
-test_cubic_eval()
-test_empty_x()
-test_rand_seed()
