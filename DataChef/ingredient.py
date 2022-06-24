@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import warnings
 
 class Ingredient():
     """Functional representation of data (signal or noise) to be created
@@ -47,4 +48,7 @@ class Ingredient():
             x (:obj:`array`): numpy array or list of floats or ints. Grid on which to 
                 evaluate the ingredient function.
         """
+        if len(x) == 0:
+            print("Cannot eval on empty array")
+            return None
         return self.func(x, **self.kwargs)
