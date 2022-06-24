@@ -15,6 +15,7 @@ def line(x, m=1, b=0):
     Returns:
         :obj:`array`: m*x + b.
     '''
+    
     return np.asarray(x)*m+b
     
 def parabola(x, a=1, b=0, c=0):
@@ -29,6 +30,7 @@ def parabola(x, a=1, b=0, c=0):
     Returns:
         :obj:`array`: a*x**2 + b*x + c.
     '''
+
     x = np.asarray(x)
     return a*x**2 + b*x + c
 
@@ -45,6 +47,7 @@ def cubic(x, a=1, b=0, c=0, d=0):
     Returns:
         :obj:`array`: a*x**3 + b*x**2 + c*x + d.
     '''
+
     x = np.asarray(x)
     return a*x**3 + b*x**2 + c*x + d
 
@@ -60,6 +63,7 @@ def sinusoid(x, phase=0, amplitude=1, period=2*np.pi):
     Returns:
         :obj:`array`: A * sin(Bx + C), where A is the amplitude, B is 2*pi / period, C is the initial phase.
     '''
+
     x = np.asarray(x)
     return amplitude*np.sin(2*np.pi / period*x + phase)
 
@@ -74,6 +78,7 @@ def uniform(x, shift=0, scale=1, seed=None):
     Returns:
         :obj:`array`: uniform distribution.
     '''
+
     if seed is not None:
         np.random.seed(seed)
     return scale * np.random.rand(len(x)) + shift
@@ -89,6 +94,7 @@ def gaussian(x, mean=0, stdev=1, seed=None):
     Returns:
         :obj:`array`: Gaussian distribution.
     '''
+
     if seed is not None:
         np.random.seed(seed)
     return np.random.normal(loc=mean, scale=stdev, size=len(x))
@@ -103,6 +109,7 @@ def poisson(x, lam=0, seed=None):
     Returns:
         :obj:`array`: Poisson distribution.
     '''
+
     if seed is not None:
         np.random.seed(seed)
     return np.random.poisson(lam=lam, size=len(x))
@@ -128,7 +135,6 @@ def gw_signal(x, m1=10, m2=10, orb_period=80, r=12, redshift=0, Phi=4, Theta=1.3
     Returns:
         :obj:`array`: The gravitional waves waveform (plus polarization) calculated with 2nd-order post Newtonian formula from: arXiv:gr-qc/9602024
                         Notice that this waveform will fail if the state of binary is approaching merger.
-
     '''
     
     nsteps = len(x)
@@ -146,7 +152,6 @@ def gw_signal(x, m1=10, m2=10, orb_period=80, r=12, redshift=0, Phi=4, Theta=1.3
     rs = redshift
     R_L = r * (1+rs)
 
-
     if i == None:
         i = np.random.rand() * np.pi * U.rad
     phi_0 = np.random.rand() * 2 * np.pi * U.rad
@@ -154,7 +159,6 @@ def gw_signal(x, m1=10, m2=10, orb_period=80, r=12, redshift=0, Phi=4, Theta=1.3
     semiaixs,t_c,tau,eta,delta = gw_signal_helper.get_computing_variable(m1,m2,p_orb)
 
     t_i = 0*U.s
-
     h_c = np.zeros(nsteps); h_p = np.zeros(nsteps) # waveforms from detector frame
 
     omega_s0 = gw_signal_helper.get_orb_freq(eta,tau,t_c,t_i/(1+rs)) # orbital frequency at initial observation time

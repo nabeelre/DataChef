@@ -5,7 +5,7 @@ import scipy.integrate
 
 G = CONST.G
 c = CONST.c
-Omega = (2 * np.pi *U.rad / (1 * U.yr)).to(U.rad/U.s)      # angular frequency earth's orbit around sun
+Omega = (2 * np.pi * U.rad / (1 * U.yr)).to(U.rad/U.s)  # angular frequency earth's orbit around sun
 R = 1 * U.AU
 
 
@@ -63,8 +63,8 @@ def get_orb_freq(eta,tau,t_c,t):
     -----------
     omega_s: [rad/s]
         source's orbital frequency at source frame time t valid up to the 2PN order 
-
     '''
+
     G_t = (eta / tau * (t_c - t)) ** (1/8)
     omega_s = 5/8 * 1/tau * (G_t**(-3) + (743/2688 + 11/32 * eta) * G_t**(-5) - 3/10 * np.pi * G_t**(-6)\
                             + (1855099/14450688 + 56975/258048 * eta + 371/2048 * eta**2) * G_t**(-7)) 
@@ -92,7 +92,6 @@ def get_orb_phase(eta,tau,t_c,t):
         source's orbital phase valid up to the 2PN order at source frame time t (ref:M&H eq(3.9),BIWW eq(7))
         * note: formula used contains information of phi_s(t=0),
           the actual form of this variable is phi_s(t)-phi_s(0)
-
     '''
 
     G_0 = (eta / tau * (t_c)) ** (1/8)
@@ -139,13 +138,11 @@ def get_gw_phase(Phi, Theta, omega_s, t_n ,t_n1, rs, phi_0, phi_s, I_0):
         If 1, use RK4 to do the integral of I_0.
         If 0, use analytic result (consider omega_s constant) to do the integral of I_0.
         default is 1 using numerical method.
-
-            
+     
     Returns
     -----------
     phi_r: [rad]
-            received gw phase at detector frame time (\ref:M&H eq(3.8a))
-            
+            received gw phase at detector frame time (\ref:M&H eq(3.8a))            
     '''
 
     def I_0dot(t, x):
@@ -153,13 +150,13 @@ def get_gw_phase(Phi, Theta, omega_s, t_n ,t_n1, rs, phi_0, phi_s, I_0):
         first order derivative equation for the RK4 in gw phase. (ref:M&H 3.8b)
         t should be in detector frame.
         '''
+
         I_0dot = omega_s.value * np.sin(Omega.value * t - Phi.value)
         return I_0dot
         
     result = scipy.integrate.solve_ivp(I_0dot,[t_n.value,t_n1.value],y0=np.array([I_0]))
     I_0 = result.y[0][-1]
     phi_r = phi_0 + phi_s - Omega * R / (c * (1+rs)) * np.sin(Theta) * I_0
-
 
     return phi_r
 
@@ -192,8 +189,6 @@ def get_waveform(tau,eta,delta,i,r,phi_r,omega_s):
         -----------
         h_p, h_c:
                 value of plus/cross polarization waveform (ref:M$H eq(3.1))
-
-
         '''
         # 2 PN order H
         cos = np.cos(i);sin = np.sin(i)
