@@ -8,9 +8,7 @@ class Ingredient():
     Attributes:
         func (:obj:`function`): Functional representation of data to be created
         label (:obj:`str`): Name or short description of ingredient 
-
     """
-
 
     def __init__(self, func, label, error_func=None, error_func_kwargs={'scale':2}, **kwargs):
         """Ingredient constructor
@@ -25,16 +23,15 @@ class Ingredient():
             error_func (:obj:`function`): function that generates an array of error values 
                 if given an x array 
             error_func (:obj:`dict`): kwargs to be passed to the error function
-
         """
+
         self.func = func
         self.kwargs = kwargs
         self.label = label
         self.error_func = error_func
         self.error_func_kwargs = error_func_kwargs
-        # self.error_kwargs = error_kwargs
 
-    def plot(self, x):
+    def plot(self, x, marker='.'):
         """Evaluate and plot ingredient
         
         Evaluate the ingredient function at specified point(s) and plot
@@ -44,7 +41,8 @@ class Ingredient():
             x (:obj:`array`): numpy array or list of floats or ints. Grid on which to 
                 evaluate the ingredient function and plot against.
         """
-        plt.plot(x, self.eval(x, ignore_errors=True), marker='.', c='k')
+        
+        plt.plot(x, self.eval(x, ignore_errors=True), marker=marker, c='k')
         plt.title(f"Ingredient '{self.label}'")
     
     def eval(self, x, yerr=None, ignore_errors=False):
