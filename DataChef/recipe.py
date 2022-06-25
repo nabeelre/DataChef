@@ -38,17 +38,19 @@ class Recipe():
         Args:
             ingredient (:obj:`Ingredient object`): The Ingredient object to be added
             mix_func(:func:`function`): A function that takes in two arrays of equal length, mixes them in some way into a 1D array and returns it
-            idx (:obj:`int`, optional): insert an ingredient with the given index, only works when the recipe list reaches this index.
+            idx (:obj:`int`, optional): insert an ingredient at the given index. Only works when the recipe list reaches this index.
         """
 
         if type(ingredient) is not Ingredient:
-            print("ingredient must be Ingredient object.")
+            print("Warning Message: ingredient must be Ingredient object.")
             return None
 
         if idx is None:
             self.ingredients.append(ingredient)
             self.mix_funcs.append(mix_func)
         else :
+            if idx > len(self.ingredients):
+                print("Warning Message: given index not exist, add ingredient to the last index.")
             self.ingredients.insert(idx, ingredient)
             self.mix_funcs.insert(idx, mix_func)
 
